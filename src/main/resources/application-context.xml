@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 数据库连接配置   -->
+    <!-- 加载jdbc.properties   -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--spring容器接管我们的sqlsessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!--可以加入驼峰命名法其他mybatis的配置也就是mybatis.cfg.xml的相关配置都会转移到这里-->
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 扫描包，将类纳入spring的管理   -->
+    <context:component-scan base-package="edu.dgut" />
+
+    <!-- mybatis 配置的启用   -->
+    <!--类似我们在mybais-config.xml中配置的package-->
+    <!--    <mybatis:scan base-package="com.dgut.dao"/>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="edu.dgut.mapper" />
+    </bean>
+
+
+
+
+    <!-- 开启注解AOP-->
+    <aop:aspectj-autoproxy/>
+
+    <!--配置事务-->
+    <!-- 配置一个事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入DataSource -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" order="2"/>
+
+    <!-- 配置事务管理器模板 -->
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <!-- 注入真正进行事务管理的事务管理器,name必须为 transactionManager否则无法注入 -->
+        <property name="transactionManager" ref="transactionManager"></property>
+    </bean>
+
+
+</beans>

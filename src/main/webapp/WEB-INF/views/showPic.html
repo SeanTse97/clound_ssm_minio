@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片首页</title>
+    <meta charset="utf-8">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1520849_llnkk5uv6h.css">
+    <!-- 滚动加载js -->
+    <script type="text/javascript" src="http://www.zhangxinxu.com/study/js/mini/jquery.scrollLoading-min.js"></script> 
+    <link rel="stylesheet" href="/minioProject/public/stylesheets/showPic.css">
+</head>
+<body>
+    <!-- <div class="top"><a href="/share">快来分享你的生活吧</a></div> -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">极简图床</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a>图片广场</a></li>
+                <li><a >我的相册</a></li>
+                <li><a href="/minioProject/share">我要分享</a></li>
+                <li class="dropdown user">
+                    <a class="dropdown-toggle" data-toggle="dropdown" id="user">   
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a  data-toggle="modal" data-target="#myModal">申请相册同步</a></li>
+                        <li><a href="/minioProject/account/loginOut">退出登陆</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </nav>  
+    <div class="container con" id="mycontain">
+    
+        <div class="row" >
+            <ul class="list" id="pic">
+            </ul>
+        </div>
+        <div class="row" style="margin-bottom: 70px">
+            <div style="text-align:center">
+                <button type="button" class="btn btn-default" onclick="getMore()" >-------------------点击获取更多图片------------------------</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" 
+                                    aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                同步设备信息：
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="form-group">
+                                  <label for="name">设备ID</label>
+                                  <input type="text" class="form-control" id="id" placeholder="请输入设备ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">设备名称</label>
+                                    <input type="text" class="form-control" id="name" placeholder="请输入设备名称">
+                                </div>
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" 
+                                    data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="sync">
+                                提交更改
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->            
+
+        </div>
+    </div>
+</body>
+<script src="/minioProject/public/javascripts/showPic.js"></script>
+</html>
+
+

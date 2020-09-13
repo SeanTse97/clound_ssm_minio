@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>首页</title>
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+	<div style="position:relative; height:auto; min-height:100%">
+		<button>dfdfdf</button>
+
+	</div>
+</head>
+<body>
+	<h1>首页</h1>
+</body>
+<script >
+	$(document).ready(function(){
+		var str = "http://119.23.237.101:9000/public/images/xiaoxin-file-1598582287726.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=02K29ZK9I6RTJXV6321S%2F20200912%2F%2Fs3%2Faws4_request&X-Amz-Date=20200912T081004Z&X-Amz-Expires=432000&X-Amz-SignedHeaders=host&X-Amz-Signature=008302eb788dfc85868a59f62966656c992591004805ab036844d6dbf76d57a6";
+		var name = getName(str,'0/','\\?');
+		console.log(name);
+	})
+	//正则匹配
+	function getName(str, start, end) {
+		let res = str.match(new RegExp(`${start}(.*?)${end}`))
+		return res ? res[1] : null
+	}
+
+</script>
+</html>
